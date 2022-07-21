@@ -32,4 +32,13 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     @Query("select b.content FROM Book b where b.id = :id")
     byte[] getContent(@Param("id") long id);
 
+    @Modifying
+    @Query("update Book b set b.viewCount=:viewCount where b.id =:id")
+    void updateViewCount(@Param("viewCount") long viewCount, @Param("id") long id);
+
+    @Modifying
+    @Query("update Book b set b.totalVoteCount=:totalVoteCount, b.totalRating=:totalRating, b.avgRating=:avgRating where b.id =:id")
+    void updateRating(@Param("totalRating") long totalRating, @Param("totalVoteCount") long totalVoteCount,  @Param("avgRating") int avgRating, @Param("id") long id);
+
+
 }
